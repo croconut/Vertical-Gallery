@@ -1,5 +1,5 @@
 {
-  "name": "GalleryView",
+  "name": "vertical-gallery",
   "version": "1.0.0",
   "description": "React component for vertical galleries",
   "keywords": [

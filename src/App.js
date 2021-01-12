@@ -14,6 +14,7 @@ export default function App() {
       transitionTime={blah}
       width="400px"
       height="500px"
+      startOpened={true}
     >
       <div bgstyle={{ backgroundImage: `url(${bg})` }}>
         <h1>Sup</h1>

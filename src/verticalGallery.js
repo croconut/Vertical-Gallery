@@ -1,19 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import "./styles.css";
 
 const VerticalGallery = ({
   uniqueName,
   blurImage,
+  startOpened,
   transitionTime,
   height,
   width,
   style,
-  children
+  children,
 }) => {
   // these are based on the original transition, which is the duration
   // to expand the gallery item. the blur effect happens with transition2
   // and the inner component starts appearing after everything else
   // has finished animating, but faster than the original transition
+  const [firstLoad, setFirstLoad] = useState(startOpened);
+  const setLoad = (bool) => {
+    setFirstLoad(!!bool);
+  };
   const transition2 = transitionTime * 1.3;
   const transition3 = transitionTime * 0.5;
   const inputs = React.Children.map(children, (_child, i) => {
@@ -25,7 +30,8 @@ const VerticalGallery = ({
         className="gallery-input"
         key={`input${i}`}
         id={panel}
-        onChange={() => {}}
+        checked={firstLoad && i == 0 ? "checked" : undefined}
+        onChange={() => setLoad(false)}
       />
     );
   });
@@ -47,7 +53,7 @@ const VerticalGallery = ({
               className="gallery-text-bg"
               style={{
                 backgroundImage: blurImage,
-                transition: `opacity ${transition2}s ease`
+                transition: `opacity ${transition2}s ease`,
               }}
             >
               <div
@@ -55,8 +61,8 @@ const VerticalGallery = ({
                 style={{
                   ...innerStyle,
                   ...{
-                    transition: `opacity ${transition3}s ease ${transitionTime}s`
-                  }
+                    transition: `opacity ${transition3}s ease ${transitionTime}s`,
+                  },
                 }}
               >
                 {grandchildren}
